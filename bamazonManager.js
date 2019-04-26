@@ -23,18 +23,35 @@ function viewProducts() {
         console.table(res);
 
     })
+    connection.end();
 }
 
 function viewLowInv() {
     console.log(choice2);
+    connection.query('SELECT * FROM products', function (err, res) {
+        if (err) throw err;
+
+        console.log('Welcome to Bamazon!\n\nWe have the following items for sale:\n');
+
+        let lowInv = [];
+        for (let i in res) {
+            if (res[i].stock_quantity < 5) {
+                lowInv.push(res[i])
+            }
+        }
+        console.table(lowInv);
+        connection.end();
+    })
 }
 
 function stockProduct() {
     console.log(choice3);
+    connection.end();
 }
 
 function addProduct() {
     console.log(choice4);
+    connection.end();
 }
 
 inquirer.prompt([{
@@ -56,7 +73,7 @@ inquirer.prompt([{
             case choice4:
                 return addProduct();
         }
-        connection.end();
+
     })
 })
 

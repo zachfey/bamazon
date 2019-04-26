@@ -31,7 +31,7 @@ SELECT * FROM products;
 UPDATE 
     products
 SET 
-    price = '10'
+    stock_quantity = '3'
 WHERE 
     product_name = 'gum';
 
