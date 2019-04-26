@@ -35,11 +35,12 @@ connection.connect(function(err){
             const buyQTY = answers.quantity
             const buyItem = answers.itemID
 
-            connection.query('SELECT stock_quantity, product_name FROM products WHERE item_id = ?', [buyItem], function(err, res){
+            connection.query('SELECT stock_quantity, product_name, price FROM products WHERE item_id = ?', [buyItem], function(err, res){
                 if(err) throw err;
                 // console.log(res[0]);
                 const stock = res[0].stock_quantity;
                 const item = res[0].product_name;
+                const price = res[0].price/100;
                 
                 if(buyQTY > stock){
                     console.log("\nSorry, we only have " + stock + ' ' + item + 's left in stock.');
@@ -53,7 +54,8 @@ connection.connect(function(err){
 
                     connection.query('UPDATE products SET stock_quantity  = (? - ?) WHERE item_id = ?', [stock, buyQTY, buyItem], function(err, res){
                         if(err) throw err;
-                        console.log('\nDatabase updated!')
+                        console.log('\nDatabase updated!\n ')
+                        console.log('You spent $' + (price*buyQTY).toFixed(2))
                         connection.end();
 
                     });

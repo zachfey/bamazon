@@ -19,7 +19,7 @@ INSERT INTO products (product_name, department_name, price, stock_quantity) VALU
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('banana', 'produce', 30, 100);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('helmet', 'sports', 2000, 15);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('beer', 'groceries', 1000, 40);
-INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('gum', 'groceries', 1000, 100);
+INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('gum', 'groceries', 10, 100);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('shoe', 'clothing', 5000, 20);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('apple', 'produce', 80, 18);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('laptop', 'electronics', 50000, 10);
@@ -31,9 +31,9 @@ SELECT * FROM products;
 UPDATE 
     products
 SET 
-    product_name = 'banana',
+    price = '10'
 WHERE 
-    product_name = 'bananas';
+    product_name = 'gum';
 
 
 SELECT stock_quantity, product_name FROM products WHERE item_id = 10;
