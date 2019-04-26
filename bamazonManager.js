@@ -14,6 +14,22 @@ const choice2 = 'View Low Inventory'
 const choice3 = 'Add to Inventory'
 const choice4 = 'Add New Product'
 
+function viewProducts(){
+    console.log(choice1);
+}
+
+function viewLowInv(){
+    console.log(choice2);
+}
+
+function stockProduct(){
+    console.log(choice3);
+}
+
+function addProduct(){
+    console.log(choice4);
+}
+
 inquirer.prompt([{
     message: 'What would you like to do?',
     choices: [choice1, choice2, choice3, choice4],
@@ -23,13 +39,13 @@ inquirer.prompt([{
 
     switch(answer.action){
         case choice1:
-            return console.log(choice1);
+            return viewProducts();
         case choice2:
-            return console.log(choice2);
+            return viewLowInv();
         case choice3:
-            return console.log(choice3);
+            return stockProduct();
         case choice4:
-            return console.log(choice4);
+            return addProduct();
     }
 })
 // If a manager selects View Products for Sale, the app should list every available item: the item IDs, names, prices, and quantities.
