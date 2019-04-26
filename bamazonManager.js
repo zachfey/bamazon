@@ -46,7 +46,22 @@ function viewLowInv() {
 
 function stockProduct() {
     console.log(choice3);
-    connection.end();
+    inquirer.prompt([{
+        message: 'Which item would you like to add more of? (enter item ID)',
+        name: 'itemAdd'
+    },
+    {
+        message: 'How much would you like to add?',
+        name: 'qtyAdd'
+    }
+    ]).then(function(ans){
+        connection.query('UPDATE products SET stock_quantity  = stock_quantity + ? WHERE item_id = ?', [ans.qtyAdd, ans.itemAdd], function (err) {
+            if (err) throw err;
+            console.log('Inventory updated!');
+        });
+        connection.end();
+    });
+    
 }
 
 function addProduct() {
@@ -76,8 +91,6 @@ inquirer.prompt([{
 
     })
 })
-
-// If a manager selects View Low Inventory, then it should list all items with an inventory count lower than five.
 
 // If a manager selects Add to Inventory, your app should display a prompt that will let the manager "add more" of any item currently in the store.
 
