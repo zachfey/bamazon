@@ -9,26 +9,29 @@ var connection = mysql.createConnection({
     database: 'bamazon'
 })
 
+const choice1 = 'View Products for Sale'
+const choice2 = 'View Low Inventory'
+const choice3 = 'Add to Inventory'
+const choice4 = 'Add New Product'
+
 inquirer.prompt([{
     message: 'What would you like to do?',
-    choices: ['View Products for Sale', 'View Low Inventory', 'Add to Inventory', 'Add New Product'],
+    choices: [choice1, choice2, choice3, choice4],
     type: 'list',
     name: 'action'
 }]).then(function(answer){
-    console.log(answer.action)
+
+    switch(answer.action){
+        case choice1:
+            return console.log(choice1);
+        case choice2:
+            return console.log(choice2);
+        case choice3:
+            return console.log(choice3);
+        case choice4:
+            return console.log(choice4);
+    }
 })
-// Running this application will:
-
-// List a set of menu options:
-
-// View Products for Sale
-
-// View Low Inventory
-
-// Add to Inventory
-
-// Add New Product
-
 // If a manager selects View Products for Sale, the app should list every available item: the item IDs, names, prices, and quantities.
 
 // If a manager selects View Low Inventory, then it should list all items with an inventory count lower than five.
