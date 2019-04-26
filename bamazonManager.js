@@ -14,19 +14,26 @@ const choice2 = 'View Low Inventory'
 const choice3 = 'Add to Inventory'
 const choice4 = 'Add New Product'
 
-function viewProducts(){
+function viewProducts() {
     console.log(choice1);
+    connection.query('SELECT * FROM products', function (err, res) {
+        if (err) throw err;
+
+        console.log('\nCurrent Inventory:');
+        console.table(res);
+
+    })
 }
 
-function viewLowInv(){
+function viewLowInv() {
     console.log(choice2);
 }
 
-function stockProduct(){
+function stockProduct() {
     console.log(choice3);
 }
 
-function addProduct(){
+function addProduct() {
     console.log(choice4);
 }
 
@@ -35,20 +42,23 @@ inquirer.prompt([{
     choices: [choice1, choice2, choice3, choice4],
     type: 'list',
     name: 'action'
-}]).then(function(answer){
+}]).then(function (answer) {
+    connection.connect(function (err) {
+        if (err) throw err;
 
-    switch(answer.action){
-        case choice1:
-            return viewProducts();
-        case choice2:
-            return viewLowInv();
-        case choice3:
-            return stockProduct();
-        case choice4:
-            return addProduct();
-    }
+        switch (answer.action) {
+            case choice1:
+                return viewProducts();
+            case choice2:
+                return viewLowInv();
+            case choice3:
+                return stockProduct();
+            case choice4:
+                return addProduct();
+        }
+        connection.end();
+    })
 })
-// If a manager selects View Products for Sale, the app should list every available item: the item IDs, names, prices, and quantities.
 
 // If a manager selects View Low Inventory, then it should list all items with an inventory count lower than five.
 
