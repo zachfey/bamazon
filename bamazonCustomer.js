@@ -11,19 +11,24 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err){
     if(err) throw err;
-    console.log('connected!');
+    console.log('connected!\n------------------------------------------------------');
     connection.query('SELECT * FROM products', function(err, res){
         if(err) throw err;
-        console.log('Welcom to Bamazon!\nWe have the following items for sale:');
+        console.log('Welcome to Bamazon!\n\nWe have the following items for sale:\n');
         for (let i in res){
             console.log('Item ' + res[i].item_id + ': ' + res[i].product_name +' for only $' + (res[i].price/100).toFixed(2) + ' each. Act fast, only ' + res[i].stock_quantity + ' remain!');
         }
+
+        inquirer.prompt([{
+            message: 'Which item would you like to buy?',
+            type: 'prompt',
+            name: 'itemID'
+        }]).then(function(answers){
+            console.log(answers.itemID);
+        })
     })
     connection.end();
 })
-
-// Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
-
 
 // The app should then prompt users with two messages.
 
