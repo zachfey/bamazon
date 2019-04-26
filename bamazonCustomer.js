@@ -30,28 +30,39 @@ connection.connect(function(err){
             message: 'How many would you like?',
             name: 'quantity'
         }
+
     ]).then(function(answers){
-            console.log('OK, buying ' + answers.quantity + ' of item ' + answers.itemID);
-            connection.query('SELECT stock_quantity, product_name FROM products WHERE item_id = ?', [answers.itemID], function(err, res){
+            const buyQTY = answers.quantity
+            const buyItem = answers.itemID
+
+            connection.query('SELECT stock_quantity, product_name FROM products WHERE item_id = ?', [buyItem], function(err, res){
                 if(err) throw err;
-                console.log(res[0]);
+                // console.log(res[0]);
                 const stock = res[0].stock_quantity;
                 const item = res[0].product_name;
-                if(answers.quantity > stock){
-                    console.log("Sorry, we only have " + stock + ' ' + item + 's');
+                
+                if(buyQTY > stock){
+                    console.log("\nSorry, we only have " + stock + ' ' + item + 's left in stock.');
+                } else{
+
+                    if(buyQTY == 1){
+                    console.log('\nOk, buying ' + buyQTY + ' ' + item);
+                    } else{
+                        console.log('\nOk, buying ' + buyQTY + ' ' + item + 's');
+                    }
+
+                    connection.query('UPDATE products SET stock_quantity  = (? - ?) WHERE item_id = ?', [stock, buyQTY, buyItem], function(err, res){
+                        if(err) throw err;
+                        console.log('\nDatabase updated!')
+                        connection.end();
+
+                    });
                 }
-                connection.end();
 
             });
         })
     })
 })
-
-// Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
-
-// If not, the app should log a phrase like Insufficient quantity!, and then prevent the order from going through.
-
-
 
 // However, if your store does have enough of the product, you should fulfill the customer's order.
 

@@ -13,17 +13,27 @@ CREATE TABLE products(
     
     SELECT * FROM products;
 
-DELETE FROM products WHERE product_name = 'television';
+DELETE FROM products WHERE product_name = 'bananas';
 
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('television', 'electronics', 30000, 7);
-INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('bananas', 'produce', 30, 100);
+INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('banana', 'produce', 30, 100);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('helmet', 'sports', 2000, 15);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('beer', 'groceries', 1000, 40);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('gum', 'groceries', 1000, 100);
-INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('shoes', 'clothing', 5000, 20);
-INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('apples', 'produce', 80, 18);
+INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('shoe', 'clothing', 5000, 20);
+INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('apple', 'produce', 80, 18);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('laptop', 'electronics', 50000, 10);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('bicycle', 'sports', 30000, 5);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('shirt', 'clothing', 2000, 10);
 
 SELECT * FROM products;
+
+UPDATE 
+    products
+SET 
+    product_name = 'banana',
+WHERE 
+    product_name = 'bananas';
+
+
+SELECT stock_quantity, product_name FROM products WHERE item_id = 10;
