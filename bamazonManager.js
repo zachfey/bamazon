@@ -54,19 +54,45 @@ function stockProduct() {
         message: 'How much would you like to add?',
         name: 'qtyAdd'
     }
-    ]).then(function(ans){
+    ]).then(function (ans) {
         connection.query('UPDATE products SET stock_quantity  = stock_quantity + ? WHERE item_id = ?', [ans.qtyAdd, ans.itemAdd], function (err) {
             if (err) throw err;
             console.log('Inventory updated!');
         });
         connection.end();
     });
-    
+
 }
 
 function addProduct() {
     console.log(choice4);
-    connection.end();
+    inquirer.prompt([{
+        message: 'What is the name of the product?',
+        name: 'name'
+    },
+    {
+        message: 'What deparment is the product in?',
+        type: 'list',
+        choices: ['electronics', 'produce', 'sports', 'groceries', 'clothing'],
+        name: 'department'
+    },
+    {
+        message: 'What is its price? (use X.XX format)',
+        name: 'price'
+    },
+    {
+        message: 'How many do we have?',
+        name: 'qty'
+    }
+    ]).then(function(ans){
+        connection.query('INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?)', [ans.name, ans.department, (ans.price * 100), ans.qty], function(err, res){
+            if (err) throw err;
+            console.log(ans.qty + ' of ' + ans.name + ' added to ' + ans.department + ' at $' + ans.price + ' ea.')
+            connection.end();
+        })
+    })
+    // product_name, department_name, price, stock_quantity
+    // If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.
 }
 
 inquirer.prompt([{
@@ -91,7 +117,3 @@ inquirer.prompt([{
 
     })
 })
-
-// If a manager selects Add to Inventory, your app should display a prompt that will let the manager "add more" of any item currently in the store.
-
-// If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.
