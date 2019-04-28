@@ -58,7 +58,7 @@ INSERT INTO departments (department_name, overhead_costs) VALUES ('clothing', 15
 INSERT INTO departments (department_name, overhead_costs) VALUES ('electronics', 40000);
 
 
-
+SELECT department_name FROM departments;
 
 SELECT * FROM departments;
 
@@ -67,7 +67,7 @@ SELECT
     department_name, 
     overhead_costs,
 	SUM(IF(products.department_name = departments.department_name, product_sales, 0)) AS total_sales,
-    total_sales-overhead_costs AS total_profit
+    SUM(IF(products.department_name = departments.department_name, product_sales, 0))-overhead_costs AS total_profit
 FROM
     departments
 INNER JOIN

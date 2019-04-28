@@ -35,20 +35,21 @@ function viewSales() {
 
 function createDepartment() {
     console.log(choice2);
-    // connection.query('SELECT * FROM products', function (err, res) {
-    //     if (err) throw err;
-
-    //     console.log('Welcome to Bamazon!\n\nWe have the following items for sale:\n');
-
-    //     let lowInv = [];
-    //     for (let i in res) {
-    //         if (res[i].stock_quantity < 5) {
-    //             lowInv.push(res[i])
-    //         }
-    //     }
-    //     console.table(lowInv);
-        // connection.end();
-    // })
+    inquirer.prompt([{
+        message: 'What is the name of the department?',
+        name: 'name'
+    },
+    {
+        message: 'What are its overhead costs?',
+        name: 'costs'
+    }
+    ]).then(function(ans){
+        connection.query('INSERT INTO departments (department_name, overhead_costs) VALUES (?, ?)', [ans.name, ans.costs], function(err, res){
+            if (err) throw err;
+            console.log(ans.name + ' added with an overhead cost of $' + ans.costs)
+            connection.end();
+        })
+    })
 }
 
 inquirer.prompt([{
