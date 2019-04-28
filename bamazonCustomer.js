@@ -44,6 +44,7 @@ connection.connect(function(err){
                 
                 if(buyQTY > stock){
                     console.log("\nSorry, we only have " + stock + ' ' + item + 's left in stock.');
+                    connection.end();
                 } else{
 
                     if(buyQTY == 1){

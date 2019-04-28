@@ -31,8 +31,6 @@ function viewLowInv() {
     connection.query('SELECT * FROM products', function (err, res) {
         if (err) throw err;
 
-        console.log('Welcome to Bamazon!\n\nWe have the following items for sale:\n');
-
         let lowInv = [];
         for (let i in res) {
             if (res[i].stock_quantity < 5) {
@@ -72,7 +70,7 @@ function addProduct() {
         for (let i in res){
             departments.push(res[i].department_name);
         }
-        console.log(departments)
+        // console.log(departments)
 
     })
     inquirer.prompt([{
