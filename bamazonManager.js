@@ -66,6 +66,15 @@ function stockProduct() {
 
 function addProduct() {
     console.log(choice4);
+    let departments = [];
+    connection.query('SELECT department_name FROM departments', function(err, res){
+        if (err) throw err;
+        for (let i in res){
+            departments.push(res[i].department_name);
+        }
+        console.log(departments)
+
+    })
     inquirer.prompt([{
         message: 'What is the name of the product?',
         name: 'name'
@@ -73,7 +82,7 @@ function addProduct() {
     {
         message: 'What deparment is the product in?',
         type: 'list',
-        choices: ['electronics', 'produce', 'sports', 'groceries', 'clothing'],
+        choices: departments,
         name: 'department'
     },
     {

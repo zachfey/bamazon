@@ -26,7 +26,7 @@ INSERT INTO products (product_name, department_name, price, stock_quantity) VALU
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('bicycle', 'sports', 30000, 5);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('shirt', 'clothing', 2000, 10);
 
-ALTER TABLE products ADD COLUMN product_sales DECIMAL;
+ALTER TABLE products MODIFY COLUMN product_sales DECIMAL(9,2);
 
 SELECT * FROM products;
 
@@ -46,7 +46,37 @@ SELECT stock_quantity, product_name FROM products WHERE item_id = 10;
 CREATE TABLE departments(
 department_id INTEGER PRIMARY KEY auto_increment,
 department_name VARCHAR(50) NOT NULL,
-over_head_costs DECIMAL
-)
+over_head_costs DECIMAL(6,2)
+);
+
+ALTER TABLE departments MODIFY COLUMN overhead_costs DECIMAL(9,2);
+
+INSERT INTO departments (department_name, overhead_costs) VALUES ('produce', 1000);
+INSERT INTO departments (department_name, overhead_costs) VALUES ('sports', 3000);
+INSERT INTO departments (department_name, overhead_costs) VALUES ('groceries', 100000);
+INSERT INTO departments (department_name, overhead_costs) VALUES ('clothing', 15000);
+INSERT INTO departments (department_name, overhead_costs) VALUES ('electronics', 40000);
+
+
+
 
 SELECT * FROM departments;
+
+SELECT 
+    department_id, 
+    department_name, 
+    overhead_costs,
+	SUM(IF(products.department_name = departments.department_name, product_sales, 0)) AS total_sales,
+    total_sales-overhead_costs AS total_profit
+FROM
+    departments
+INNER JOIN
+    products USING (department_name)
+GROUP BY department_name;
+    
+    SELECT
+  userid,
+  SUM(col1) AS col1_total,
+  SUM(col2) AS col2_total
+FROM table
+GROUP BY userid
