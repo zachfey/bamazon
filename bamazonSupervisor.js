@@ -42,7 +42,7 @@ function createDepartment() {
     {
         message: 'What are its overhead costs?',
         name: 'costs'
-    }
+    },
     ]).then(function(ans){
         connection.query('INSERT INTO departments (department_name, overhead_costs) VALUES (?, ?)', [ans.name, ans.costs], function(err, res){
             if (err) throw err;
