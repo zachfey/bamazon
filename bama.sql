@@ -26,14 +26,27 @@ INSERT INTO products (product_name, department_name, price, stock_quantity) VALU
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('bicycle', 'sports', 30000, 5);
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('shirt', 'clothing', 2000, 10);
 
+ALTER TABLE products ADD COLUMN product_sales DECIMAL;
+
 SELECT * FROM products;
+
+UPDATE products SET stock_quantity  = 80, product_sales = 3.00 WHERE item_id = 2;
 
 UPDATE 
     products
 SET 
-    stock_quantity = '3'
+    price = '700'
 WHERE 
-    product_name = 'gum';
+    product_name = 'coffee';
 
 
 SELECT stock_quantity, product_name FROM products WHERE item_id = 10;
+
+
+CREATE TABLE departments(
+department_id INTEGER PRIMARY KEY auto_increment,
+department_name VARCHAR(50) NOT NULL,
+over_head_costs DECIMAL
+)
+
+SELECT * FROM departments;

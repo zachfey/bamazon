@@ -52,10 +52,11 @@ connection.connect(function(err){
                         console.log('\nOk, buying ' + buyQTY + ' ' + item + 's');
                     }
 
-                    connection.query('UPDATE products SET stock_quantity  = (? - ?) WHERE item_id = ?', [stock, buyQTY, buyItem], function(err, res){
+                    let cost = (price*buyQTY).toFixed(2);
+                    connection.query('UPDATE products SET stock_quantity  = (? - ?), product_sales = product_sales + ? WHERE item_id = ?', [stock, buyQTY, cost, buyItem], function(err, res){
                         if(err) throw err;
                         console.log('\nDatabase updated!\n ')
-                        console.log('You spent $' + (price*buyQTY).toFixed(2))
+                        console.log('You spent $' + cost)
                         connection.end();
 
                     });
