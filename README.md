@@ -2,8 +2,10 @@
 
 ## To run
 cd bamazon
+
 npm i
-node server
+
+node bamazonCustomer || node bamazonManager || node bamazonSupervisor (depending on which level you want to access)
 
 ## Description
 A product management interface meant to be used on the CLI.
