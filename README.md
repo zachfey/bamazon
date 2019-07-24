@@ -1,5 +1,11 @@
 # bamazon
 
+## To run
+cd bamazon
+npm i
+node server
+
+## Description
 A product management interface meant to be used on the CLI.
 
 This project has three different modes: customer, manager, and supervisor.
